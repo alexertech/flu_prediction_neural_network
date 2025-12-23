@@ -450,6 +450,85 @@ def main():
 
     # =========================================================================
     # BUILD MODEL
+    """
+    Hidden layers are arbitrary numbers that are essentially my choice.
+    They're called hyperparameters.
+
+    Our flu model:  7 → 16 → 8 → 1
+    Could be:       7 → 32 → 16 → 1
+    Could be:       7 → 100 → 50 → 25 → 1
+    Could be:       7 → 4 → 1
+
+    Rules of Thumb (Not Laws)
+
+    TOO FEW neurons  → Can't learn complex patterns ("underfitting")
+    TOO MANY neurons → Memorizes data, fails on new data ("overfitting")
+                        Also: slower, needs more data
+
+    SWEET SPOT       → "Enough" to capture patterns, not more
+                        Usually found by experimentation
+
+    Common heuristics:
+    - Start between input size and output size
+    - Taper down: 100 → 64 → 32 → 1 (funnel shape)
+    - Or keep constant: 100 → 64 → 64 → 1
+    - More layers = can learn more abstract patterns (but harder to train)
+
+    For Our Flu Model
+
+    Input:  7 features
+    Output: 1 prediction
+
+    Hidden: 16 → 8  ← I just picked reasonable numbers!
+
+    Could've been: 7 → 10 → 1     (simpler, might work fine)
+    Could've been: 7 → 64 → 32 → 1 (overkill for this problem)
+
+    The problem is simple (7 features, clear patterns), so small layers suffice.
+
+
+    The Real Answer: Experiment
+    Nobody knows the "right" architecture beforehand
+    You try things:
+
+    model_a = [7, 8, 1]        # accuracy: 82%
+    model_b = [7, 16, 8, 1]    # accuracy: 85%
+    model_c = [7, 32, 16, 1]   # accuracy: 85%  ← same, but slower
+    model_d = [7, 4, 1]        # accuracy: 78%  ← too small
+
+    This is why deep learning is part science, part art, part "just try it."
+
+
+    This field has a dirty secret:
+    +--------------------------------------------------------------------+
+    |  TRADITIONAL ENGINEERING         |  MACHINE LEARNING               |
+    +----------------------------------+---------------------------------+
+    |  F = ma                          |  "Try 16 neurons, see what      |
+    |  V = IR                          |   happens"                      |
+    |  Laws are LAWS                   |                                 |
+    +----------------------------------+---------------------------------+
+    |  Calculate → Build → Works       |  Build → Train → Maybe works?   |
+    |                                  |  Tweak → Train → Better?        |
+    |                                  |  Tweak → Train → Worse. Undo.   |
+    +----------------------------------+---------------------------------+
+
+    The Uncomfortable Truth
+
+    A lot of ML progress came from:
+    - "Let's try making it bigger" → worked
+    - "Let's add more data" → worked
+    - "Let's train longer" → worked
+    - Theoretical understanding → came after
+
+    The parts that ARE reliable:
+
+    ✓ Gradient descent WILL minimize loss (math proven)
+    ✓ More relevant data WILL help (statistically proven)
+    ✓ The training loop itself is deterministic
+    ✓ Embeddings WILL cluster similar things (observed consistently)
+
+    The "art" is only in architecture choices. Once chosen, the math takes over.
+    """
     # =========================================================================
     print("\n" + "=" * 55)
     print("NEURAL NETWORK ARCHITECTURE")
