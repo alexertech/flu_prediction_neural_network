@@ -1,0 +1,20 @@
+# Virtual Environments
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+
+# Generated outputs
+*.png
+*.pkl
+*.pt
+
+# OS
+.DS_Store
